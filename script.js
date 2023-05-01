@@ -1,73 +1,176 @@
-$('a[href*="#"]')
-  .not('[href="#"]')
-  .not('[href="#0"]')
-  .click(function(event) {
-    if (
-      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-      && 
-      location.hostname == this.hostname
-    ) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        event.preventDefault();
-        $('html, body').animate({
-          scrollTop: target.offset().top
-        }, 1000, function() {
-          var $target = $(target);
-          $target.focus();
-          if ($target.is(":focus")) {
-            return false;
-          } else {
-            $target.attr('tabindex','-1');
-            $target.focus(); 
-          };
-        });
-      }
-    }
-  });
+let t1 = gsap.timeline();
 
-var rafId = null;
-var delay = 200;
-var lTime = 0;
-
-function scroll() {
-  var scrollTop = $(window).scrollTop();
-  var height = $(window).height()
-  var visibleTop = scrollTop + height;
-  $('.reveal').each(function() {
-    var $t = $(this);
-    if ($t.hasClass('reveal_visible')) { return; }
-    var top = $t.offset().top;
-    if (top <= visibleTop) {
-      if (top + $t.height() < scrollTop) {
-        $t.removeClass('reveal_pending').addClass('reveal_visible');
-      } else {
-        $t.addClass('reveal_pending');
-        if (!rafId) requestAnimationFrame(reveal);  
-      }
-    }
-  });
-}
-function reveal() {
-  rafId = null;
-  var now = performance.now();
-  
-  if (now - lTime > delay) {
-    lTime = now;
-    var $ts = $('.reveal_pending');
-    $($ts.get(0)).removeClass('reveal_pending').addClass('reveal_visible');  
-  }
-  
-  
-  if ($('.reveal_pending').length >= 1) rafId = requestAnimationFrame(reveal);
-}
-
-$(scroll);
-$(window).scroll(scroll);
-$(window).click(function() {
-  $('.reveal').removeClass('reveal_visible').removeClass('reveal_pending');
-  lTime = performance.now() + 500;
-  var top = $(window).scrollTop();
-  $(window).scrollTop(top === 0 ? 1 : top-1);
+t1.from(".imsrk", {
+  opacity: 0,
+  xPercent: -100,
+  delay: 0.5,
+  duration: 1,
+  ease: "power1.out",
+  yoyo: true,
 });
+t1.from(
+  ".dot",
+  {
+    opacity: 0,
+    yPercent: 100,
+    delay: 0.5,
+    repeatDelay: 1,
+    duration: 1,
+    ease: "power1.out",
+  },
+  0.01
+);
+
+t1.to(".dot", {
+  x: 20,
+  duration: 1,
+  ease: "power1.out",
+});
+
+t1.to(".dot", {
+  x: -10,
+  duration: 0.5,
+  ease: "power1.out",
+});
+
+t1.to(".imsrk", {
+  opacity: 0,
+  xPercent: -100,
+  duration: 1,
+  ease: "power1.out",
+  yoyo: true,
+});
+
+t1.to(
+  ".dot",
+  {
+    opacity: 0,
+    duration: 1,
+    ease: "expo.out",
+  },
+  3
+);
+
+t1.to(
+  ".cover",
+  {
+    xPercent: -100,
+    duration: 1,
+    ease: "power1.out",
+  },
+  3
+);
+
+t1.to(
+  ".cover-2",
+  {
+    xPercent: -100,
+    duration: 1,
+    ease: "power1.out",
+  },
+  3.2
+);
+
+t1.to(
+  ".cover-3",
+  {
+    xPercent: -100,
+    duration: 1,
+    ease: "power1.out",
+  },
+  3.4
+);
+
+t1.to(
+  ".cover-4",
+  {
+    xPercent: -100,
+    duration: 1,
+    ease: "power1.out",
+  },
+  3.6
+);
+
+t1.from(
+  ".imsrk2",
+  {
+    xPercent: -100,
+    duration: 1,
+    ease: "power1.out",
+    opacity: 0,
+  },
+  3.8
+);
+
+t1.from(".cover-5", {
+  yPercent: -100,
+  duration: 1,
+  ease: "power1.out",
+  delay: 0.4,
+});
+
+t1.from(".logo", {
+  xPercent: -100,
+  opacity: 0,
+  duration: 1,
+  ease: "power1.out",
+});
+
+t1.from(
+  ".item",
+  {
+    xPercent: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power1.out",
+    stagger: {
+      amount: 0.5,
+      from: "left",
+    },
+  },
+  6
+);
+
+t1.from(
+  ".header-img",
+  {
+    xPercent: -100,
+    opacity: 0,
+    duration: 1,
+    ease: "power1.out",
+  },
+  6.2
+);
+
+t1.from(
+  ".heading",
+  {
+    xPercent: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power1.out",
+  },
+  6.2
+);
+
+t1.from(
+  ".sub-heading",
+  {
+    xPercent: 100,
+    opacity: 0,
+    duration: 1.1,
+    ease: "power1.out",
+  },
+  6.2
+);
+
+t1.from(
+  ".button",
+  {
+    yPercent: 100,
+    opacity: 0,
+    duration: 2,
+    ease: "bounce",
+  },
+  6.5
+);
